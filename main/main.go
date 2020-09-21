@@ -148,6 +148,10 @@ func deleteGroup(groupName string) Response {
 		saveGroups(groups)
 		_ = os.Remove(groupName + ".json")
 		response := Response{Status: "success", Message: "group was deleted"}
+		// remove "groups.json" if there are no groups
+		if len(groups) == 0 {
+			_ = os.Remove("groups.json")
+		}
 		return response
 	} else {
 		response := Response{Status: "error", Message: "group not found"}
